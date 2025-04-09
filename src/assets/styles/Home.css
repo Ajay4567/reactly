@@ -1,0 +1,149 @@
+.landing-page {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Hero Section */
+.hero-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hero-content {
+    max-width: 50%;
+}
+
+.hero-content h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.hero-content p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.shop-now-btn {
+    background-color: #0074cc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.hero-image {
+    max-width: 40%;
+    border-radius: 10px;
+}
+
+/* Top Links */
+.top-links {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background: #ffffff;
+    margin-top: 15px;
+}
+
+.top-links a {
+    text-decoration: none;
+    color: #0074cc;
+    font-weight: bold;
+}
+
+/* Shopping for Today */
+.shopping-today,
+.popular-categories {
+    margin-top: 20px;
+}
+
+.categories {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.category-item {
+    text-align: center;
+    max-width: 120px;
+}
+
+.category-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
+/* Pet Parenting */
+.pet-parenting {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.parenting-card {
+    background: #e8f4ff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 22%;
+}
+
+/* Slider css */
+
+.slider {
+    width: 100%;
+    height: 400px;
+    /* Adjust as needed */
+    overflow: hidden;
+    position: relative;
+}
+
+.slides {
+    display: flex;
+    width: 100%;
+    /* 4 slides + 1 duplicate */
+    animation: slide 20s infinite;
+}
+
+.slides img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+/* Keyframe for smooth infinite loop */
+@keyframes slide {
+    0% {
+        transform: translateX(0%);
+    }
+
+    20% {
+        transform: translateX(-100%);
+    }
+
+    40% {
+        transform: translateX(-200%);
+    }
+
+    60% {
+        transform: translateX(-300%);
+    }
+
+    80% {
+        transform: translateX(-400%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}

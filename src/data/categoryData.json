@@ -1,0 +1,118 @@
+[
+    {
+        "name": "Dog",
+        "slug": "dog",
+        "subcategories": [
+            {
+                "name": "Food & Treats",
+                "slug": "food-treats",
+                "filters": [
+                    "Puppy",
+                    "Adult",
+                    "Senior",
+                    "Grain-Free",
+                    "Chicken",
+                    "Fish",
+                    "Weight Management"
+                ]
+            },
+            {
+                "name": "Grooming & Care",
+                "slug": "grooming-care",
+                "filters": [
+                    "Shampoo",
+                    "Conditioner",
+                    "Brushes",
+                    "Paw Care"
+                ]
+            },
+            {
+                "name": "Accessories",
+                "slug": "accessories",
+                "filters": [
+                    "Leashes",
+                    "Collars",
+                    "Harnesses",
+                    "Clothing"
+                ]
+            },
+            {
+                "name": "Toys",
+                "slug": "toys",
+                "filters": [
+                    "Chew",
+                    "Plush",
+                    "Interactive",
+                    "Training"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Cat",
+        "slug": "cat",
+        "subcategories": [
+            {
+                "name": "Food & Nutrition",
+                "slug": "food-nutrition",
+                "filters": [
+                    "Kitten",
+                    "Adult",
+                    "Senior",
+                    "Grain-Free",
+                    "Hairball Control"
+                ]
+            },
+            {
+                "name": "Litter & Waste",
+                "slug": "litter-waste",
+                "filters": [
+                    "Clumping",
+                    "Non-Clumping",
+                    "Deodorizer"
+                ]
+            },
+            {
+                "name": "Toys",
+                "slug": "toys",
+                "filters": [
+                    "Teasers",
+                    "Balls",
+                    "Interactive"
+                ]
+            },
+            {
+                "name": "Furniture",
+                "slug": "furniture",
+                "filters": [
+                    "Cat Trees",
+                    "Scratchers",
+                    "Beds"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Pet Parents",
+        "slug": "pet-parents",
+        "subcategories": [
+            {
+                "name": "Gifting",
+                "slug": "gifting",
+                "filters": [
+                    "Gift Boxes",
+                    "Custom Name Tags"
+                ]
+            },
+            {
+                "name": "Cleaning Supplies",
+                "slug": "cleaning-supplies",
+                "filters": [
+                    "Disinfectants",
+                    "Deodorizers",
+                    "Cleaning Wipes"
+                ]
+            }
+        ]
+    }
+]
