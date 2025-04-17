@@ -167,26 +167,31 @@ export function NavBar() {
   return (
     <>
       {/* Header Section */}
-      <header className="header">
-        <div className="logo">
+      <header className="flex justify-between items-center py-[10px] px-[62px] bg-[#f8f9fa]">
+        <div className="h-[50px]">
           <Link to="/">
-            <img src="/images/logo.png" alt="Brand Logo" />
+            <img className="h-full" src="/images/logo.png" alt="Brand Logo" />
           </Link>
         </div>
 
-        <div className="search-bar">
+        <div className="flex items-center">
           <input
+            className="w-[500px] p-[8px] border border-solid border-[#ccc] rounded-[5px]"
             type="text"
             placeholder="Search for products..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button type="submit" onClick={handleSearch}>
+          <button
+            className="bg-[#007bff] text-white border-0 py-[8px] px-[12px] ml-[5px] cursor-pointer rounded-[5px]"
+            type="submit"
+            onClick={handleSearch}
+          >
             🔍
           </button>
         </div>
 
-        <div className="auth-options">
+        <div className="flex gap-[15px]">
           {user ? (
             <div className="dropdown">
               <span>{user.name} ⬇</span>
@@ -203,7 +208,7 @@ export function NavBar() {
             <>
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="auth-link"
+                className="text-[#007bff] font-bold hover:text-[#0056b3]"
               >
                 Sign In
               </button>
@@ -218,8 +223,11 @@ export function NavBar() {
                   <OTPLogin onLoginSuccess={setUser} />
                 </Modal>
               )}
-
-              <Link to="/register" className="auth-link">
+    
+              <Link
+                to="/register"
+                className="text-[#007bff] font-bold hover:text-[#0056b3]"
+              >
                 Register
               </Link>
             </>
