@@ -207,19 +207,114 @@ export function NavBar() {
     { id: 2, name: "Cat Toy", price: 300, quantity: 1, image: "cattoy.png" },
   ];
 
+  // MENU BTN CLICK STATE
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleMenuIcon = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+  const [activeDropdown, setActiveDropdown] = useState(null);
+
+  const toggleDropdown = (slug) => {
+    setActiveDropdown((prev) => (prev === slug ? null : slug));
+  };
   return (
     <>
       {/* Header Section */}
-      <header className="flex justify-between items-center py-[10px] px-[62px] bg-[#f8f9fa]">
-        <div className="h-[50px]">
-          <Link to="/">
-            <img className="h-full" src="/images/logo.png" alt="Brand Logo" />
-          </Link>
+      <header className="flex justify-between items-center py-[10px] px-4 md:px-[62px] bg-[#f8f9fa] relative">
+        <div
+          className={`fixed left-0 w-full h-screen bg-[#ff6d1f] z-40 transition-all lg:hidden ${
+            isMenuOpen ? "top-0 pt-12" : "-top-full pt-0"
+          }`}
+        >
+          <nav className="nav-container py-[10px] px-2 md:px-[50px] block lg:hidden">
+            <ul className="main-menu list-none flex flex-col gap-7 m-0 p-0 relative">
+              {categories.map((main) => (
+                <li
+                  onClick={() => toggleDropdown(main.slug)}
+                  key={main.slug}
+                  className="menu-item cursor-pointer font-bold group flex justify-between relative"
+                >
+                  <div className="flex items-center">
+                    <span className="inline-block py-2 px-2 sm:px-3">
+                      {main.name}
+                    </span>
+                    <svg
+                      className="w-4 h-4"
+                      data-name="Layer 1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 15 15"
+                    >
+                      <path d="M3.81 4.38 8 8.57l4.19-4.19 1.52 1.53L8 11.62 2.29 5.91l1.52-1.53z" />
+                    </svg>
+                  </div>
+                  <ul
+                    className={`submenu w-full flex-wrap absolute top-10 right-0 bg-white list-none p-3 shadow-2xl z-10 mx-5 ${
+                      activeDropdown === main.slug ? "flex" : "hidden"
+                    }`}
+                  >
+                    {main.subcategories.map((sub) => (
+                      <li
+                        className="flex flex-col items-center justify-center w-6/12 md:w-2/12 py-2 px-4 hover:bg-[#f0f0f0]"
+                        key={sub.slug}
+                      >
+                        <img
+                          className="w-20 h-20 rounded-full"
+                          src="../../../images/dog.jpg"
+                          alt="dog"
+                        />
+                        <Link
+                          className="text-center"
+                          to={`/products/${main.slug}/${sub.slug}`}
+                          state={{ category: { ...sub, pet: main.slug } }}
+                        >
+                          {sub.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+        <div className="flex items-center gap-4 sm:gap-10">
+          <div
+            onClick={handleMenuIcon}
+            className="flex flex-col gap-2 lg:hidden cursor-pointer transition-all duration-300 ease-in-out z-50"
+          >
+            {/* Top Line */}
+            <span
+              className={`border-b-[3px] border-solid border-black w-8 rounded-full transform transition-all duration-300 ease-in-out origin-center ${
+                isMenuOpen ? "rotate-45 translate-y-[10.5px]" : ""
+              }`}
+            ></span>
+
+            {/* Middle Line */}
+            <span
+              className={`border-b-[3px] border-solid border-black w-8 rounded-full transform transition-all duration-300 ease-in-out ${
+                isMenuOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"
+              }`}
+            ></span>
+
+            {/* Bottom Line */}
+            <span
+              className={`border-b-[3px] border-solid border-black w-8 rounded-full transform transition-all duration-300 ease-in-out origin-center ${
+                isMenuOpen ? "-rotate-45 -translate-y-[10.5px]" : ""
+              }`}
+            ></span>
+          </div>
+
+          <div className="h-[50px]">
+            <Link to="/">
+              <img className="h-full" src="/images/logo.png" alt="Brand Logo" />
+            </Link>
+          </div>
         </div>
 
-        <div className="flex items-center border border-solid border-[#ccc] rounded-md">
+        <div className="hidden md:flex items-center border border-solid border-[#ccc] rounded-md">
           <input
-            className="w-[500px] border-transparent rounded-s-md m-0 outline-none"
+            className="w-[300px] lg:w-[500px] border-transparent rounded-s-md m-0 outline-none"
             type="text"
             placeholder="Search for products..."
             value={searchQuery}
@@ -263,7 +358,7 @@ export function NavBar() {
 
         <div className="flex items-center gap-[15px]">
           {user ? (
-            <div className="dropdown z-30">
+            <div className="dropdown z-30 group">
               <div className="flex items-center gap-1">
                 {user.name}{" "}
                 <svg
@@ -276,7 +371,7 @@ export function NavBar() {
                 </svg>
               </div>
               <div className="pt-1">
-                <div className="dropdown-content p-3">
+                <div className="dropdown-content hidden absolute bg-white shadow-2xl p-3 group-hover:block">
                   <div className="flex flex-col gap-2">
                     <Link to="/profile">Profile</Link>
                     <Link to="/orders">My Orders</Link>
@@ -319,6 +414,15 @@ export function NavBar() {
               </Link> */}
             </>
           )}
+          <button>
+            <svg
+              className="w-5 h-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 32 32"
+            >
+              <path d="M16 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm0-12c-2.757 0-5 2.243-5 5s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5zM23.942 32H8.058A4.062 4.062 0 0 1 4 27.942c0-6.616 5.383-12 12-12s12 5.384 12 12A4.062 4.062 0 0 1 23.942 32zM16 17.942c-5.514 0-10 4.486-10 10A2.06 2.06 0 0 0 8.058 30h15.884A2.06 2.06 0 0 0 26 27.942c0-5.514-4.486-10-10-10z" />
+            </svg>
+          </button>
           <button
             className="cart-btn bg-[#cccdcf] rounded-full shadow-2xl w-10 h-10 flex justify-center items-center relative"
             onClick={() => setCartOpen(true)}
@@ -341,13 +445,60 @@ export function NavBar() {
           </button>
         </div>
       </header>
+      <div className="flex items-center border border-solid border-[#ccc] rounded-md md:hidden mx-4">
+        <input
+          className="w-full lg:w-[500px] border-transparent rounded-s-md m-0 outline-none"
+          type="text"
+          placeholder="Search for products..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button
+          className="bg-[#ff6d1f] h-full py-3 text-white border-0 px-[12px] cursor-pointer rounded-e-md"
+          type="submit"
+          onClick={handleSearch}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="24"
+            height="24"
+            viewBox="0,0,256,256"
+          >
+            <g
+              fill="#ffffff"
+              fill-rule="nonzero"
+              stroke="none"
+              stroke-width="1"
+              stroke-linecap="butt"
+              stroke-linejoin="miter"
+              stroke-miterlimit="10"
+              stroke-dasharray=""
+              stroke-dashoffset="0"
+              font-family="none"
+              font-weight="none"
+              font-size="none"
+              text-anchor="none"
+            >
+              <g transform="scale(8.53333,8.53333)">
+                <path d="M13,3c-5.511,0 -10,4.489 -10,10c0,5.511 4.489,10 10,10c2.39651,0 4.59738,-0.85101 6.32227,-2.26367l5.9707,5.9707c0.25082,0.26124 0.62327,0.36648 0.97371,0.27512c0.35044,-0.09136 0.62411,-0.36503 0.71547,-0.71547c0.09136,-0.35044 -0.01388,-0.72289 -0.27512,-0.97371l-5.9707,-5.9707c1.41266,-1.72488 2.26367,-3.92576 2.26367,-6.32227c0,-5.511 -4.489,-10 -10,-10zM13,5c4.43012,0 8,3.56988 8,8c0,4.43012 -3.56988,8 -8,8c-4.43012,0 -8,-3.56988 -8,-8c0,-4.43012 3.56988,-8 8,-8z"></path>
+              </g>
+            </g>
+          </svg>
+        </button>
+      </div>
 
       {/* CartPopup Section 1*/}
       {cartOpen && (
         <div className="cart-overlay" onClick={() => setCartOpen(false)}></div>
       )}
 
-      <div className={`cart-container ${cartOpen ? "open" : ""}`}>
+      <div
+        className={`cart-container max-w-[900px] my-[20px] mx-auto ${
+          cartOpen ? "open" : ""
+        }`}
+      >
         <CartPopup
           isOpen={cartOpen}
           cartItems={cartItems}
@@ -356,8 +507,8 @@ export function NavBar() {
       </div>
 
       {/* Navigation Menu */}
-      {/* <nav className="navbar">
-                <ul className="nav-list">
+      {/* <nav className="navbar flex justify-between bg-white shadow-2xl py-4 px-5">
+                <ul className="nav-list flex items-center gap-5 list-none">
                     <NavDropdown title="DOG" icon="🐶"
                         items={[
                             { label: "Foods", path: "/dog/foods" },
@@ -382,18 +533,23 @@ export function NavBar() {
                         ]}
                     />
 
-                    <li>
-                        <Link to="/deals" className="deals-link">🔥 Today's Deals</Link>
+                    <li className="relative py-3 cursor-pointer font-bold px-4">
+                        <Link to="/deals" className="deals-link text-red-500 font-bold no-underline hover:underline">🔥 Today's Deals</Link>
                     </li>
                 </ul>
             </nav> */}
 
-      <nav className="nav-container">
-        <ul className="main-menu">
+      <nav className="nav-container bg-white border-b border-solid border-b-[#ccc] py-[10px] px-2 md:px-[50px] hidden lg:block">
+        <ul className="main-menu list-none flex gap-7 m-0 p-0 relative">
           {categories.map((main) => (
-            <li key={main.slug} className="menu-item">
+            <li
+              key={main.slug}
+              className="menu-item cursor-pointer font-bold group"
+            >
               <div className="flex items-center">
-                <span>{main.name}</span>
+                <span className="inline-block py-2 px-2 sm:px-3">
+                  {main.name}
+                </span>
                 <svg
                   className="w-4 h-4"
                   data-name="Layer 1"
@@ -403,10 +559,10 @@ export function NavBar() {
                   <path d="M3.81 4.38 8 8.57l4.19-4.19 1.52 1.53L8 11.62 2.29 5.91l1.52-1.53z" />
                 </svg>
               </div>
-              <ul className="submenu w-[1200px] flex-wrap">
+              <ul className="submenu w-full h-[300px] flex-wrap hidden group-hover:flex absolute top-[180px] left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white list-none p-3 shadow-2xl z-10 mx-5">
                 {main.subcategories.map((sub) => (
                   <li
-                    className="flex flex-col items-center justify-center !w-2/12"
+                    className="flex flex-col items-center justify-center !w-2/12 py-2 px-4 hover:bg-[#f0f0f0]"
                     key={sub.slug}
                   >
                     <img

@@ -33,7 +33,12 @@ const SignInModal = ({ isOpen, onClose }) => {
             Enter Mobile Number
           </p>
           <form className="mt-2">
-            <input type="number" placeholder="Enter Mobile Number" required />
+            <input
+              className="w-full p-[10px] my-[10px] border border-solid border-[#ddd] rounded-lg text-base"
+              type="number"
+              placeholder="Enter Mobile Number"
+              required
+            />
             <button
               type="submit"
               className="w-full py-2 bg-[#ff6d1f] text-white rounded-md mt-3"
