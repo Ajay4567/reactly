@@ -314,7 +314,7 @@ export function NavBar() {
 
         <div className="hidden md:flex items-center border border-solid border-[#ccc] rounded-md">
           <input
-            className="w-[300px] lg:w-[500px] border-transparent rounded-s-md m-0 outline-none"
+            className="w-[300px] lg:w-[500px] border-transparent rounded-s-md m-0 outline-none ps-4 bg-transparent"
             type="text"
             placeholder="Search for products..."
             value={searchQuery}
@@ -446,7 +446,7 @@ export function NavBar() {
       </header>
       <div className="flex items-center border border-solid border-[#ccc] rounded-md md:hidden mx-4">
         <input
-          className="w-full lg:w-[500px] border-transparent rounded-s-md m-0 outline-none"
+          className="w-full lg:w-[500px] border-transparent rounded-s-md m-0 outline-none ps-4"
           type="text"
           placeholder="Search for products..."
           value={searchQuery}
@@ -558,7 +558,7 @@ export function NavBar() {
                   <path d="M3.81 4.38 8 8.57l4.19-4.19 1.52 1.53L8 11.62 2.29 5.91l1.52-1.53z" />
                 </svg>
               </div>
-              <ul className="submenu w-full h-[300px] flex-wrap hidden group-hover:flex absolute top-[180px] left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white list-none p-3 shadow-2xl z-10 mx-5">
+              <ul className="submenu w-full h-[300px] flex-wrap hidden group-hover:flex absolute top-[180px] left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white list-none p-3 shadow-2xl z-10">
                 {main.subcategories.map((sub) => (
                   <li
                     className="flex flex-col items-center justify-center !w-2/12 py-2 px-4 hover:bg-[#f0f0f0]"

@@ -63,9 +63,9 @@ const Home = () => {
         </h3>
         <div className="categories flex flex-wrap justify-between gap-4">
           {["Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog"].map((item) => (
-            <div className="category-item text-center max-w-32" key={item}>
+            <div className="category-item text-center max-w-44" key={item}>
               <img
-                className="w-28 h-28 rounded-full border-2 border-solid border-[#ddd]"
+                className="w-40 h-40 rounded-full border-2 border-solid border-[#ddd]"
                 src={`${"images/" + item.toLowerCase()}.jpg`}
                 alt={item}
               />
@@ -80,9 +80,9 @@ const Home = () => {
         <h3 className="text-2xl font-bold mb-5">Explore Popular Categories</h3>
         <div className="categories flex flex-wrap justify-between gap-4">
           {["Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog"].map((item) => (
-            <div className="category-item text-center max-w-32" key={item}>
+            <div className="category-item text-center max-w-44" key={item}>
               <img
-                className="w-28 h-28 rounded-full border-2 border-solid border-[#ddd]"
+                className="w-40 h-40 rounded-full border-2 border-solid border-[#ddd]"
                 src={`${"images/" + item.toLowerCase()}.jpg`}
                 alt={item}
               />
