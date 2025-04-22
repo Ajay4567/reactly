@@ -115,7 +115,7 @@
   color: red;
 } */
 
-.otp-container {
+/* .otp-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -134,65 +134,25 @@
   background: #007bff;
   color: white;
   cursor: pointer;
-}
+} */
 
-.navbar {
+/* .navbar {
   display: flex;
   justify-content: space-between;
   padding: 10px;
   background: #f8f9fa;
-}
+} */
 
-.dropdown-content {
+/* .dropdown-content {
   display: none;
   position: absolute;
   background: white;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-}
+} */
 
-.dropdown:hover .dropdown-content {
+/* .dropdown:hover .dropdown-content {
   display: block;
-}
-
-/* profile dropdown after login */
-.otp-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 20px;
-}
-
-.otp-container input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.otp-container button {
-  padding: 10px;
-  border: none;
-  background: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background: #f8f9fa;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background: white;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
+} */
 
 /* INPUT NUMBER ARROWS CLASSES */
 input::-webkit-outer-spin-button,
