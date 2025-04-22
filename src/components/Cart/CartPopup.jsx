@@ -22,7 +22,10 @@ export default function CartPopup({ cartItems, isOpen, onClose }) {
     >
       <div className="cart-header flex justify-between items-center border-b border-solid border-[#ddd] pb-[10px]">
         <h2>Shopping Cart</h2>
-        <button className="close-btn bg-none border-none text-lg" onClick={onClose}>
+        <button
+          className="close-btn bg-none border-none text-lg"
+          onClick={onClose}
+        >
           ✖
         </button>
       </div>
@@ -32,12 +35,12 @@ export default function CartPopup({ cartItems, isOpen, onClose }) {
           {cartItems.map((item) => (
             <li
               key={item.id}
-              className="cart-item flex items-center gap-2 mb-4"
+              className="cart-item flex items-center justify-between gap-2 my-4"
             >
               <img
-                className="w-10 h-40 object-cover"
-                src={item.image}
-                alt={item.name}
+                className="object-cover w-20 h-20 rounded-full"
+                src="/images/cat.jpg"
+                alt="cat"
               />
               <div className="cart-item-info">
                 <h4>{item.name}</h4>
