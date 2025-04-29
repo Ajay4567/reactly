@@ -1,9 +1,44 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../assets/styles/Home.css";
 import HomeSlider from "./HomeSlider";
 import Footer from "../Common/Footer";
 
 const Home = () => {
+  const scrollRef = useRef(null);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+
+  // Scroll amount per click
+  const scrollAmount = 300;
+
+  const handleScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const atStart = el.scrollLeft === 0;
+    const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+
+    setShowLeftArrow(!atStart);
+    setShowRightArrow(!atEnd);
+  };
+
+  const scrollLeft = () => {
+    scrollRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+  };
+
+  const scrollRight = () => {
+    scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    handleScroll(); // check on mount
+    el.addEventListener("scroll", handleScroll);
+
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
     <div className="landing-page font-arial m-auto">
       {/* HOME PAGE SLIDER */}
@@ -61,28 +96,74 @@ const Home = () => {
         <h3 className="text-2xl font-bold mb-5">
           Who are you shopping for today?
         </h3>
-        <div className="categories flex flex-wrap justify-between gap-4">
-          {["Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog"].map((item) => (
-            <div className="category-item text-center max-w-44" key={item}>
-              <img
-                className="w-40 h-40 rounded-full border-2 border-solid border-[#ddd]"
-                src={`${"images/" + item.toLowerCase()}.jpg`}
-                alt={item}
-              />
-              <p className="text-base font-semibold">{item}</p>
-            </div>
-          ))}
+        <div className="relative">
+          {/* Left Arrow */}
+          {showLeftArrow && (
+            <button
+              onClick={scrollLeft}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white justify-center items-center h-10 w-10 shadow-md rounded-full hidden md:flex"
+            >
+              <svg
+                className="w-4 h-4 rotate-90"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 15 15"
+              >
+                <path d="M3.81 4.38 8 8.57l4.19-4.19 1.52 1.53L8 11.62 2.29 5.91l1.52-1.53z"></path>
+              </svg>
+            </button>
+          )}
+
+          {/* Scrollable Content */}
+          <div
+            ref={scrollRef}
+            className="flex overflow-x-auto gap-4 scroll-smooth no-scrollbar"
+          >
+            {["Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog"].map(
+              (item, index) => (
+                <div
+                  className="text-center flex-shrink-0 w-[100px] md:w-[210px]"
+                  key={index}
+                >
+                  <img
+                    className="w-[100px] md:w-[210px] h-[100px] md:h-[210px] object-cover rounded-full border-2 border-[#ddd]"
+                    src={`images/${item.toLowerCase()}.jpg`}
+                    alt={item}
+                  />
+                  <p className="text-base font-semibold text-center">{item}</p>
+                </div>
+              )
+            )}
+          </div>
+
+          {/* Right Arrow */}
+          {showRightArrow && (
+            <button
+              onClick={scrollRight}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white justify-center items-center h-10 w-10 shadow-md rounded-full hidden md:flex"
+            >
+              <svg
+                className="w-4 h-4 -rotate-90"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 15 15"
+              >
+                <path d="M3.81 4.38 8 8.57l4.19-4.19 1.52 1.53L8 11.62 2.29 5.91l1.52-1.53z"></path>
+              </svg>
+            </button>
+          )}
         </div>
       </div>
 
       {/* Popular Categories */}
       <div className="popular-categories px-4 md:px-[62px] mt-10">
         <h3 className="text-2xl font-bold mb-5">Explore Popular Categories</h3>
-        <div className="categories flex flex-wrap justify-between gap-4">
-          {["Dog", "Cat", "Dog", "Cat", "Dog", "Cat", "Dog"].map((item) => (
-            <div className="category-item text-center max-w-44" key={item}>
+        <div className="categories flex flex-wrap !justify-between xl:justify-center">
+          {["Dog", "Cat", "Dog", "Cat", "Dog", "Cat"].map((item) => (
+            <div
+              className="category-item text-center flex flex-wrap flex-col items-center justify-center w-6/12 sm:w-4/12 lg:w-2/12"
+              key={item}
+            >
               <img
-                className="w-40 h-40 rounded-full border-2 border-solid border-[#ddd]"
+                className="md:w-[210px] w-[120px] md:h-[210px] h-[120px] object-cover rounded-full border-2 border-solid border-[#ddd]"
                 src={`${"images/" + item.toLowerCase()}.jpg`}
                 alt={item}
               />
@@ -91,7 +172,7 @@ const Home = () => {
                 src={`${item.replace(/ /g, "-").toLowerCase()}.jpg`}
                 alt={item}
               /> */}
-              <p className="text-base font-semibold">{item}</p>
+              <p className="text-base font-semibold text-center">{item}</p>
             </div>
           ))}
         </div>

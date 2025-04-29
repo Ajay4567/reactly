@@ -249,20 +249,20 @@ export function NavBar() {
                     </svg>
                   </div>
                   <ul
-                    className={`submenu w-full flex-wrap absolute top-10 right-0 bg-white list-none p-3 shadow-2xl z-10 mx-5 ${
-                      activeDropdown === main.slug ? "flex" : "hidden"
+                    className={`submenu w-full flex-wrap absolute top-10 right-0 bg-white list-none p-3 shadow-2xl z-10 ${
+                      activeDropdown === main.slug ? "flex flex-col" : "hidden"
                     }`}
                   >
                     {main.subcategories.map((sub) => (
                       <li
-                        className="flex flex-col items-center justify-center w-6/12 md:w-2/12 py-2 px-4 hover:bg-[#f0f0f0]"
+                        className="flex flex-col items-start justify-center py-2 px-4 hover:bg-[#f0f0f0]"
                         key={sub.slug}
                       >
-                        <img
-                          className="w-20 h-20 rounded-full"
+                        {/* <img
+                          className="w-20 h-20 rounded-full hidden"
                           src="../../../images/dog.jpg"
                           alt="dog"
-                        />
+                        /> */}
                         <Link
                           className="text-center"
                           to={`/products/${main.slug}/${sub.slug}`}
@@ -356,7 +356,7 @@ export function NavBar() {
           </button>
         </div>
         <div className="flex justify-between items-center gap-3">
-          <button>
+          {/* <button>
             <svg
               className="w-5 h-5"
               xmlns="http://www.w3.org/2000/svg"
@@ -364,7 +364,7 @@ export function NavBar() {
             >
               <path d="M16 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm0-12c-2.757 0-5 2.243-5 5s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5zM23.942 32H8.058A4.062 4.062 0 0 1 4 27.942c0-6.616 5.383-12 12-12s12 5.384 12 12A4.062 4.062 0 0 1 23.942 32zM16 17.942c-5.514 0-10 4.486-10 10A2.06 2.06 0 0 0 8.058 30h15.884A2.06 2.06 0 0 0 26 27.942c0-5.514-4.486-10-10-10z" />
             </svg>
-          </button>
+          </button> */}
           <div className="flex items-center gap-[15px]">
             {user ? (
               <div className="dropdown z-30 group">

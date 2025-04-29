@@ -62,26 +62,41 @@ const ProductList = ({ products }) => {
   //     document.title = `${category ? category.toUpperCase() : "Food Products"} | HULF`;
   // }, []);
 
-  return (
-    <div className="product-page flex gap-5 p-5">
-      {/* Left Sidebar - Filters */}
-      <aside className="filters w-[250px] p-4 bg-[#f8f8f8] rounded-lg shadow-2xl">
-        <h2 className="text-lg mb-[10px]">Filters</h2>
-        {/* {filters.map((filter, index) => (
-                    <label key={index} className="filter-item block mb-2 text-sm">
-                        <input className="w-full p-[10px] my-[10px] border border-solid border-[#ddd] rounded-lg text-base mr-[5px]" type="checkbox" value={filter} onChange={() => setSelectedFilter(filter)} />
-                        {filter}
-                    </label>
-                ))} */}
+  const [filterSideBar, setFilterSideBar] = useState(false)
+  const handleFilterSideBar = () => {
+    if (window.innerWidth < 768) {
+      setFilterSideBar((prev) => !prev);
+    }
+  };
 
-        <FiltersSidebar
-          filters={category.filters}
-          onFilterChange={handleFilterChange}
-        />
-      </aside>
+  return (
+    <div className="product-page md:flex gap-5 md:p-5">
+      {/* Left Sidebar - Filters */}
+      <div>
+        <h2 onClick={handleFilterSideBar} className="text-lg mb-[10px] border-b-2 pb-2 px-4 font-bold text-[24px]">Filters</h2>
+
+        <aside className={`filters w-[250px] bg-[#f8f8f8] rounded-lg shadow-2xl
+  ${filterSideBar ? "block w-full" : "hidden"} 
+  md:block 
+  absolute md:static top-0 left-0 z-50`}>
+          <button onClick={handleFilterSideBar} className="flex justify-end w-full p-4 md:hidden text-black">✖</button>
+          {/* {filters.map((filter, index) => (
+                      <label key={index} className="filter-item block mb-2 text-sm">
+                          <input className="w-full p-[10px] my-[10px] border border-solid border-[#ddd] rounded-lg text-base mr-[5px]" type="checkbox" value={filter} onChange={() => setSelectedFilter(filter)} />
+                          {filter}
+                      </label>
+                  ))} */}
+          <div className="p-4">
+            <FiltersSidebar
+              filters={category.filters}
+              onFilterChange={handleFilterChange}
+            />
+          </div>
+        </aside>
+      </div>
 
       {/* Right Section - Product List */}
-      <section className="product-list grid justify-center gap-5 p-5 [grid-template-columns:repeat(auto-fill,_minmax(280px,_1fr))]">
+      <section className="product-list px-4 md:px-5 pb-5 w-full">
         <h2 className="product-list-title text-2xl font-bold mb-5">
           {category?.name || subCategory.replace("-", " ")}
         </h2>
@@ -97,13 +112,17 @@ const ProductList = ({ products }) => {
             <option value="popularity">Popularity</option>
           </select>
         </div>
-        {(productData || [])
-          .filter((product) =>
-            selectedFilter ? product.tags.includes(selectedFilter) : true
-          )
-          .map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+        <div className="flex flex-wrap w-full mt-3">
+          {(productData || [])
+            .filter((product) =>
+              selectedFilter ? product.tags.includes(selectedFilter) : true
+            )
+            .map((product) => (
+              <div key={product.id} className="w-full sm:w-6/12 lg:w-4/12 xl:w-3/12 sm:px-2 md:px-3 mb-5">
+                <ProductCard product={product} />
+              </div>
+            ))}
+        </div>
       </section>
     </div>
   );
