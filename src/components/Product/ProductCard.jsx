@@ -10,19 +10,20 @@ const ProductCard = ({ product }) => {
   console.log("renderStars", renderStars);
 
   return (
-    <div className="product-card border border-solid border-[#ddd] rounded-lg p-[15px] bg-white relative text-center">
+    <div className="product-card border border-solid border-[#ddd] rounded-lg p-[15px] bg-white relative text-center h-full">
       {/* New Launch Badge */}
       <div className="badge bg-green-600 text-white p-1 text-xs absolute top-[10px] left-[10px] rounded-md">
         New Launch
       </div>
 
       {/* Product Image */}
-      <img
-        src={product.image}
-        alt={product.name}
-        className="product-image w-full h-[160px] bg-[#eee] mb-[10px] rounded-md"
-      />
-
+      <Link to={`/product/${product.id}`}>
+        <img
+          src={product.image}
+          alt={product.name}
+          className="product-image w-full h-[160px] bg-[#eee] mb-[10px] rounded-md"
+        />
+      </Link>
       {/* Product Details */}
       <h4 className="brand text-orange-400 font-bold">{product.brand}</h4>
       <p className="product-name text-base font-medium">{product.name}</p>
@@ -41,11 +42,10 @@ const ProductCard = ({ product }) => {
         {product.packs.map((pack, index) => (
           <button
             key={index}
-            className={`pack-btn border border-solid border-[#ddd] p-1 rounded text-xs ${
-              selectedPack.label === pack.label
-                ? "selected bg-[#ff7a00] text-white"
-                : ""
-            }`}
+            className={`pack-btn border border-solid border-[#ddd] p-1 rounded text-xs ${selectedPack.label === pack.label
+              ? "selected bg-[#ff7a00] text-white"
+              : ""
+              }`}
             onClick={() => setSelectedPack(pack)}
           >
             {pack.label}{" "}

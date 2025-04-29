@@ -162,10 +162,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* SCROLL BAR CLASSES */
-.no-scrollbar::-webkit-scrollbar {
+::-webkit-scrollbar {
   display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
 }
