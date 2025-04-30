@@ -1,13 +1,3 @@
-// const productData = [
-//     { id: 1, name: "Dry Dog Food", category: "dog-food", price: 500 },
-//     { id: 2, name: "Wet Cat Food", category: "cat-food", price: 300 },
-//     { id: 3, name: "Organic Dog Treats", category: "dog-food", price: 700 },
-//     { id: 4, name: "Fish Food", category: "fish-food", price: 200 },
-// ];
-
-// export default productData;
-
-
 const productData = [
     {
         id: 1,
