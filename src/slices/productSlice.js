@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const productsSlice = createSlice({
+const productSlice = createSlice({
     name: 'products',
     initialState: {
         items: [],
@@ -8,20 +8,20 @@ const productsSlice = createSlice({
         error: null,
     },
     reducers: {
-        fetchProductsStart(state) {
+        fetchProductStart(state) {
             state.loading = true;
             state.error = null;
         },
-        fetchProductsSuccess(state, action) {
+        fetchProductSuccess(state, action) {
             state.items = action.payload;
             state.loading = false;
         },
-        fetchProductsFailure(state, action) {
+        fetchProductFailure(state, action) {
             state.error = action.payload;
             state.loading = false;
         },
     },
 });
 
-export const { fetchProductsStart, fetchProductsSuccess, fetchProductsFailure } = productsSlice.actions;
-export default productsSlice.reducer;
+export const { fetchProductStart, fetchProductSuccess, fetchProductFailure } = productSlice.actions;
+export default productSlice.reducer;

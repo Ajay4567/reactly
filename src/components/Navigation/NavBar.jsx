@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { NavDropdown } from "./NavDropdown";
 import CartPopup from "../Cart/CartPopup";
@@ -6,8 +7,14 @@ import SignInModal from "../Auth/SignInModal";
 import Modal from "../Common/Modal"; // Import the Modal component
 import OTPLogin from "../Auth/OTPLogin"; // Import the OTP Login component
 import "../../assets/styles/styles.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../slices';
 
 export function NavBar() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
   const userStatic = { id: "123", name: "ajay sodhi" };
   const [searchQuery, setSearchQuery] = useState("");
   const [user, setUser] = useState(userStatic);
@@ -177,8 +184,8 @@ export function NavBar() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
+    dispatch(logout());
+    navigate('/'); // Redirect to home page after logout
   };
 
   //Global search
@@ -223,9 +230,8 @@ export function NavBar() {
       {/* Header Section */}
       <header className="flex justify-between items-center py-[10px] px-4 md:px-[62px] bg-[#f8f9fa] relative">
         <div
-          className={`fixed left-0 w-full h-screen bg-[#ff6d1f] z-40 transition-all lg:hidden ${
-            isMenuOpen ? "top-0 pt-12" : "-top-full pt-0"
-          }`}
+          className={`fixed left-0 w-full h-screen bg-[#ff6d1f] z-40 transition-all lg:hidden ${isMenuOpen ? "top-0 pt-12" : "-top-full pt-0"
+            }`}
         >
           <nav className="nav-container py-[10px] px-2 md:px-[50px] block lg:hidden">
             <ul className="main-menu list-none flex flex-col gap-7 m-0 p-0 relative">
@@ -249,9 +255,8 @@ export function NavBar() {
                     </svg>
                   </div>
                   <ul
-                    className={`submenu w-full flex-wrap absolute top-10 right-0 bg-white list-none p-3 shadow-2xl z-10 ${
-                      activeDropdown === main.slug ? "flex flex-col" : "hidden"
-                    }`}
+                    className={`submenu w-full flex-wrap absolute top-10 right-0 bg-white list-none p-3 shadow-2xl z-10 ${activeDropdown === main.slug ? "flex flex-col" : "hidden"
+                      }`}
                   >
                     {main.subcategories.map((sub) => (
                       <li
@@ -285,23 +290,20 @@ export function NavBar() {
           >
             {/* Top Line */}
             <span
-              className={`border-b-[3px] border-solid border-black w-8 rounded-full transform transition-all duration-300 ease-in-out origin-center ${
-                isMenuOpen ? "rotate-45 translate-y-[10.5px]" : ""
-              }`}
+              className={`border-b-[3px] border-solid border-black w-8 rounded-full transform transition-all duration-300 ease-in-out origin-center ${isMenuOpen ? "rotate-45 translate-y-[10.5px]" : ""
+                }`}
             ></span>
 
             {/* Middle Line */}
             <span
-              className={`border-b-[3px] border-solid border-black w-8 rounded-full transform transition-all duration-300 ease-in-out ${
-                isMenuOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"
-              }`}
+              className={`border-b-[3px] border-solid border-black w-8 rounded-full transform transition-all duration-300 ease-in-out ${isMenuOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"
+                }`}
             ></span>
 
             {/* Bottom Line */}
             <span
-              className={`border-b-[3px] border-solid border-black w-8 rounded-full transform transition-all duration-300 ease-in-out origin-center ${
-                isMenuOpen ? "-rotate-45 -translate-y-[10.5px]" : ""
-              }`}
+              className={`border-b-[3px] border-solid border-black w-8 rounded-full transform transition-all duration-300 ease-in-out origin-center ${isMenuOpen ? "-rotate-45 -translate-y-[10.5px]" : ""
+                }`}
             ></span>
           </div>
 
@@ -311,7 +313,7 @@ export function NavBar() {
             </Link>
           </div>
         </div>
-
+        {/* Global Search input */}
         <div className="hidden md:flex items-center border border-solid border-[#ccc] rounded-md">
           <input
             className="w-[300px] lg:w-[500px] border-transparent rounded-s-md m-0 outline-none ps-4 bg-transparent"
@@ -356,17 +358,8 @@ export function NavBar() {
           </button>
         </div>
         <div className="flex justify-between items-center gap-3">
-          {/* <button>
-            <svg
-              className="w-5 h-5"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 32 32"
-            >
-              <path d="M16 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm0-12c-2.757 0-5 2.243-5 5s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5zM23.942 32H8.058A4.062 4.062 0 0 1 4 27.942c0-6.616 5.383-12 12-12s12 5.384 12 12A4.062 4.062 0 0 1 23.942 32zM16 17.942c-5.514 0-10 4.486-10 10A2.06 2.06 0 0 0 8.058 30h15.884A2.06 2.06 0 0 0 26 27.942c0-5.514-4.486-10-10-10z" />
-            </svg>
-          </button> */}
           <div className="flex items-center gap-[15px]">
-            {user ? (
+            {isAuthenticated ? (
               <div className="dropdown z-30 group">
                 <div className="flex items-center gap-1">
                   {user.name}{" "}
@@ -387,9 +380,8 @@ export function NavBar() {
                       <Link to="/wallet">My Wallet</Link>
                       <button
                         onClick={handleLogout}
-                        className="bg-[#ff6d1f] text-white px-2 py-1 rounded-sm"
-                      >
-                        Logout
+                        className="bg-[#ff6d1f] text-white px-2 py-1 rounded-sm hover:bg-red-700"
+                      >Logout
                       </button>
                     </div>
                   </div>
@@ -413,12 +405,6 @@ export function NavBar() {
                     <OTPLogin onLoginSuccess={setUser} />
                   </Modal>
                 )}
-                {/* <Link
-                  to="/register"
-                  className="text-[#007bff] font-bold hover:text-[#0056b3]"
-                >
-                  Register
-                </Link> */}
               </>
             )}
             <button
@@ -494,9 +480,8 @@ export function NavBar() {
       )}
 
       <div
-        className={`cart-container max-w-[900px] my-[20px] mx-auto ${
-          cartOpen ? "open" : ""
-        }`}
+        className={`cart-container max-w-[900px] my-[20px] mx-auto ${cartOpen ? "open" : ""
+          }`}
       >
         <CartPopup
           isOpen={cartOpen}
@@ -504,39 +489,6 @@ export function NavBar() {
           onClose={() => setCartOpen(false)}
         />
       </div>
-
-      {/* Navigation Menu */}
-      {/* <nav className="navbar flex justify-between bg-white shadow-2xl py-4 px-5">
-                <ul className="nav-list flex items-center gap-5 list-none">
-                    <NavDropdown title="DOG" icon="🐶"
-                        items={[
-                            { label: "Foods", path: "/dog/foods" },
-                            { label: "Treats", path: "/dog/treats" },
-                            { label: "Training", path: "/dog/training" },
-                        ]}
-                    />
-
-                    <NavDropdown title="CAT" icon="🐱"
-                        items={[
-                            { label: "Breeds", path: "/cat/breeds" },
-                            { label: "Food & Nutrition", path: "/cat/food" },
-                            { label: "Grooming & Care", path: "/cat/care" },
-                        ]}
-                    />
-
-                    <NavDropdown title="PET PARENTS" icon="🐾"
-                        items={[
-                            { label: "Gifting", path: "/pet/gifting" },
-                            { label: "Clothing & Accessories", path: "/pet/clothing" },
-                            { label: "Cleaning Supplies", path: "/pet/cleaning" },
-                        ]}
-                    />
-
-                    <li className="relative py-3 cursor-pointer font-bold px-4">
-                        <Link to="/deals" className="deals-link text-red-500 font-bold no-underline hover:underline">🔥 Today's Deals</Link>
-                    </li>
-                </ul>
-            </nav> */}
 
       <nav className="nav-container bg-white border-b border-solid border-b-[#ccc] py-[10px] px-2 md:px-[50px] hidden lg:block">
         <ul className="main-menu list-none flex gap-7 m-0 p-0 relative">

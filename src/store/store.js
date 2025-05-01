@@ -1,14 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authReducer, productsReducer } from '../slices';
+import { authReducer, productReducer } from '../slices';
 
 const store = configureStore({
     reducer: {
         auth: authReducer,
-        products: productsReducer,
+        products: productReducer,
     },
 });
-
-const { loginSuccess, loginFailure, logout } = authSlice.actions;
-const { fetchProductsStart, fetchProductsSuccess, fetchProductsFailure } = productsSlice.actions;
 
 export default store;

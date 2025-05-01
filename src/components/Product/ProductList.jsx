@@ -4,31 +4,10 @@ import productData from "../../data/productData";
 import ProductCard from "./ProductCard";
 import FiltersSidebar from "./FiltersSidebar";
 import "../../assets/styles/Product.css";
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchProductStart, fetchProductSuccess, fetchProductFailure, logout } from '../../slices/productSlice';
+import productService from '../../services/productService';
 
-// const ProductList = () => {
-//     const { category } = useParams(); // Get category from URL
-//     const [filteredProducts, setFilteredProducts] = useState([]);
-
-//     useEffect(() => {
-//         const filtered = productData.filter((product) => product.category === category);
-//         setFilteredProducts(filtered);
-//     }, [category]);
-
-//     return (
-//         <div>
-//             <h2>Products for {category.replace("-", " ")}</h2>
-//             <ul>
-//                 {filteredProducts.length > 0 ? (
-//                     filteredProducts.map((product) => (
-//                         <li key={product.id}>{product.name} - ₹{product.price}</li>
-//                     ))
-//                 ) : (
-//                     <p>No products found</p>
-//                 )}
-//             </ul>
-//         </div>
-//     );
-// };
 
 const ProductList = ({ products }) => {
   // const { category } = useParams(); // Get category from URL
@@ -39,6 +18,22 @@ const ProductList = ({ products }) => {
   const category = location.state?.category;
   const [selectedFilters, setSelectedFilters] = useState({});
   const [sortOrder, setSortOrder] = useState("price-asc"); // Default sorting by price (ascending)
+
+  const dispatch = useDispatch();
+  const { items, loading, error } = useSelector((state) => state.products);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      dispatch(fetchProductStart());
+      try {
+        const products = await productService.getAll();
+        dispatch(fetchProductSuccess(products));
+      } catch (err) {
+        dispatch(fetchProductFailure(err));
+      }
+    };
+    fetchProducts();
+  }, [dispatch]);
 
   // Sorting handler
   const handleSortChange = (e) => {
@@ -58,9 +53,7 @@ const ProductList = ({ products }) => {
       return updated;
     });
   };
-  // useEffect(() => {
-  //     document.title = `${category ? category.toUpperCase() : "Food Products"} | HULF`;
-  // }, []);
+
 
   const [filterSideBar, setFilterSideBar] = useState(false)
   const handleFilterSideBar = () => {
@@ -80,12 +73,6 @@ const ProductList = ({ products }) => {
   md:block 
   absolute md:static top-0 left-0 z-50`}>
           <button onClick={handleFilterSideBar} className="flex justify-end w-full p-4 md:hidden text-black">✖</button>
-          {/* {filters.map((filter, index) => (
-                      <label key={index} className="filter-item block mb-2 text-sm">
-                          <input className="w-full p-[10px] my-[10px] border border-solid border-[#ddd] rounded-lg text-base mr-[5px]" type="checkbox" value={filter} onChange={() => setSelectedFilter(filter)} />
-                          {filter}
-                      </label>
-                  ))} */}
           <div className="p-4">
             <FiltersSidebar
               filters={category.filters}

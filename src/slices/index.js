@@ -1,2 +1,2 @@
-export { default as authReducer } from './AuthSlice';
-export { default as productsReducer } from './productsSlice';
+export { default as authReducer, loginSuccess, loginFailure, logout } from './authSlice';
+export { default as productReducer, fetchProductStart, fetchProductSuccess, fetchProductFailure } from './productSlice';
